@@ -12,6 +12,7 @@ public class CombinationLock {
 
     char[] lastIns;
     String combinazioneSegreta;
+    boolean isOpen;
     /**
      * Costruisce una cassaforte <b>aperta</b> con una data combinazione
      * 
@@ -29,6 +30,7 @@ public class CombinationLock {
         throw new IllegalArgumentException();
         lastIns= new char[3];
         combinazioneSegreta=aCombination;
+        isOpen=false;
     }
 
     /**
@@ -42,8 +44,8 @@ public class CombinationLock {
      *                                      lettera maiuscola dell'alfabeto
      *                                      inglese
      */
-    public void setPosition(char aPosition) {
-        if  (aPosition<='A' || aPosition>='Z')
+    public void setPosition(char aPosition) {//metodo che fa scorrere di 1 i caratteri del vettore, scarta quello di indice 0 e ne mette uno nuovo (aPosition) alla fine
+        if  (aPosition<'A' || aPosition>'Z')
             throw new IllegalArgumentException();
         //scorro la combinazione di 1, inserisco il "nuovo" (aPosition) carattere sull'indice finale del vettore
         lastIns[0]=lastIns[1];
@@ -56,9 +58,11 @@ public class CombinationLock {
      * ultime tre posizioni impostate.
      */
     public void open() {
-        // TODO implementare
-        //if()
 
+        if(combinazioneSegreta.equals(new String(lastIns)))
+            isOpen=true;
+        else
+            isOpen=false;
 
     }
 
@@ -68,8 +72,7 @@ public class CombinationLock {
      * @return true se la cassaforte è attualmente aperta, false altrimenti
      */
     public boolean isOpen() {
-        // TODO implementare
-        return false;
+            return isOpen;
     }
 
     /**
@@ -80,7 +83,9 @@ public class CombinationLock {
      * sono proprio la combinazione attuale.
      */
     public void lock() {
-        // TODO implementare
+        if(isOpen())
+            isOpen=false;
+
     }
 
     /**
@@ -96,6 +101,17 @@ public class CombinationLock {
      * @throw NullPointerException se la combinazione fornita è nulla
      */
     public void lockAndChangeCombination(String aCombination) {
-        // TODO implementare
+        if(aCombination==null)
+            throw new NullPointerException();
+        for(char c: aCombination.toCharArray()) { //per ogni lettera della stringa aCombination convertita in char
+            if (!Character.isLetter(aCombination.charAt(c)))//se il carattere char c nella posizione corrente di c non risulta essere una lettera dell'alfabeto...
+                throw new IllegalArgumentException();
+        }
+        if(isOpen())
+            {
+                lock();
+                combinazioneSegreta=aCombination;
+            }
+        }
+
     }
-}
