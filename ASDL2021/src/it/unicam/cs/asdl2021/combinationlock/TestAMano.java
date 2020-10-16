@@ -62,7 +62,7 @@ public class TestAMano {
         else
             System.out.println(
                     "ERRORE: La cassaforte è rimasta chiusa con la combinazione giusta!");
-        c.lock();
+        c.lock();//aggiunto per bloccare la cassaforte (non posso forzare una cassaforte bloccata)
         System.out.println("Creo uno scassinatore...");
         Burglar f = new Burglar(c);
         System.out.println("Lo scassinatore dice che la combinazione è "

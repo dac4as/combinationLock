@@ -35,7 +35,11 @@ public class Burglar {
      */
     public String findCombination() {
         if (aCombinationLock.isOpen)
+        {
             System.out.println("Cassaforte già aperta");
+            //andrebbe quindi chiusa, prima di provare la combinazione
+            //aCombinationLock.lock();non funge
+        }
         else{
                 for (char i='A';i<='Z';i++)
                 {

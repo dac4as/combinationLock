@@ -10,9 +10,9 @@ package it.unicam.cs.asdl2021.combinationlock;
  */
 public class CombinationLock {
 
-    char[] lastIns;
-    String combinazioneSegreta;
-    boolean isOpen;
+    char[] lastIns; //variabile per inserire le varie combinazioni
+    private String combinazioneSegreta; //variabile dove viene salvata la combinazione per sbloccare la cassaforte, ANDREBBE PRIVATA
+    boolean isOpen;//flag per segnalare apertura o meno della cassa
     /**
      * Costruisce una cassaforte <b>aperta</b> con una data combinazione
      * 
@@ -24,13 +24,13 @@ public class CombinationLock {
      * @throw NullPointerException se la combinazione fornita è nulla
      */
     public CombinationLock(String aCombination) {
-        if(aCombination==null)
-            throw new NullPointerException();
-        if(aCombination.length()!=3 || !aCombination.equals(aCombination.toUpperCase()))
+        if(aCombination==null)//così si confronta se la stringa sia vuota o meno, .equals(null) è un riferimento alla memoria (darebbe sicuramente nullpointerexc), equals serve per confrontare le stringhe, non il null
+            throw new NullPointerException();//OPPURE andava bene aCombination.equals("")
+        if(aCombination.length()!=3 || !aCombination.equals(aCombination.toUpperCase()))//non viene fatto un controllo preciso, ma su setPosition sì (manca quella condizione a riga 48, ma non si può fare su string) vedi riga 106
         throw new IllegalArgumentException();
-        lastIns= new char[3];
+        lastIns= new char[3];//le variabili (anche vettori) vanno inizializzate nel costruttore
         combinazioneSegreta=aCombination;
-        isOpen=false;
+        isOpen=false; //io la istanzio chiusa la cassa, ma se i test me la aprono poco posso farci (inoltre è buona cosa aggiungere this. alle variabili istanza)
     }
 
     /**
